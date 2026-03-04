@@ -1,11 +1,8 @@
-{% load static %}<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Caribbean</title>
-    <link rel="stylesheet" href="{% static 'CSS/caribbean.css' %}">
-</head>
-<body>
-    <h1 class="color">hola</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<title>{% block title %}Caribbean | Home{% endblock %}</title>
+<h1 class="color">Bienvenidos a el Caribbean</h1>
+{% endblock %}
