@@ -23,6 +23,26 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  animation: gentleBreeze 8s ease-in-out infinite;
+}
+
+@keyframes gentleBreeze {
+  0%   { 
+    background-size: cover;
+    background-position: center center; 
+  }
+  33%  { 
+    background-size: cover;
+    background-position: center 48%; 
+  }
+  66%  { 
+    background-size: cover;
+    background-position: center 52%; 
+  }
+  100% { 
+    background-size: cover;
+    background-position: center center; 
+  }
 }
 
 main {
@@ -805,6 +825,7 @@ footer {
   perspective: 600px;
   perspective-origin: 50% 50%;
   background: #6d0e7d; /* your dark blue */
+  align-items: center;
 }
 
 .reveal-card .reveal-text-col h2 {
@@ -832,6 +853,7 @@ footer {
   /* reset generic .card p styles */
   margin: 0;
   flex-shrink: unset;
+  text-align: center;
 }
 
 /* ── Word spans — start deep behind screen ── */

@@ -8,12 +8,12 @@
 <!-- Card 1 — image TOP RIGHT -->
 <div class="reveal-card">
   <div class="reveal-text-col">
-    <h2>Your heading here</h2>
-    <p>Body copy...</p>
+    <h2>Cancun</h2>
+    <p>White sand beaches, turquoise Caribbean waters, ancient Mayan ruins, and a world famous hotel strip. Mexico's most visited resort city blends natural beauty with vibrant nightlife and year round sunshine.</p>
     <a class="reveal-btn" href="#">Read more</a>
   </div>
   <div class="reveal-image-col">
-    <img src="{% static 'images/Cancun-background.jpg' %}" alt="...">
+    <img src="{% static 'images/Cancun-background.png' %}" alt="...">
   </div>
 </div>
 
@@ -23,8 +23,8 @@
     <img src="{% static 'images/DR-background.jpg' %}" alt="...">
   </div>
   <div class="reveal-text-col">
-    <h2>Your heading here</h2>
-    <p>Body copy...</p>
+    <h2>Dominican Republic</h2>
+    <p>A diverse island of lush mountains, colonial Santo Domingo, and stunning beaches like Punta Cana. Warm people, merengue music, and rich culture make it the Caribbean's most visited nation.</p>
     <a class="reveal-btn" href="#">Read more</a>
   </div>
 </div>
@@ -32,8 +32,8 @@
 <!-- Card 3 — image BOTTOM RIGHT -->
 <div class="reveal-card">
   <div class="reveal-text-col">
-    <h2>Your heading here</h2>
-    <p>Body copy...</p>
+    <h2>Puerto Rica</h2>
+    <p>A US territory with a Spanish soul. Old San Juan's colourful colonial streets, El Yunque rainforest, and Condado beach combine Caribbean warmth with American convenience and extraordinary food culture.</p>
     <a class="reveal-btn" href="#">Read more</a>
   </div>
   <div class="reveal-image-col">
@@ -47,7 +47,10 @@
       .map(w => `<span class="reveal-word">${w}</span>`).join(' ');
   });
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal-active'); });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal-active');
+     else {
+      e.target.classList.remove('reveal-active');
+    } });
   }, { threshold: 0.25 });
   document.querySelectorAll('.reveal-card').forEach(c => obs.observe(c));
 </script>
