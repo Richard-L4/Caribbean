@@ -5,4 +5,54 @@
 {% block content %}
 <title>{% block title %}Caribbean | Home{% endblock %}</title>
 <h1 class="color">Bienvenidos a el Caribbean</h1>
+<!-- Card 1 — image TOP RIGHT -->
+<div class="reveal-card">
+  <div class="reveal-text-col">
+    <span class="reveal-label">01 / Section</span>
+    <h2>Your heading here</h2>
+    <p>Body copy...</p>
+    <a class="reveal-btn" href="#">Read more</a>
+  </div>
+  <div class="reveal-image-col">
+    <img src="{% static 'images/Cancun-background.jpg' %}" alt="...">
+  </div>
+</div>
+
+<!-- Card 2 — image MIDDLE LEFT -->
+<div class="reveal-card reveal-left">
+  <div class="reveal-image-col">
+    <img src="{% static 'images/DR-background.jpg' %}" alt="...">
+  </div>
+  <div class="reveal-text-col">
+    <span class="reveal-label">02 / Section</span>
+    <h2>Your heading here</h2>
+    <p>Body copy...</p>
+    <a class="reveal-btn" href="#">Read more</a>
+  </div>
+</div>
+
+<!-- Card 3 — image BOTTOM RIGHT -->
+<div class="reveal-card">
+  <div class="reveal-text-col">
+    <span class="reveal-label">03 / Section</span>
+    <h2>Your heading here</h2>
+    <p>Body copy...</p>
+    <a class="reveal-btn" href="#">Read more</a>
+  </div>
+  <div class="reveal-image-col">
+    <img src="{% static 'images/PR-background.jpg' %}" alt="...">
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.reveal-text-col h2').forEach(h2 => {
+    h2.innerHTML = h2.textContent.trim().split(/\s+/)
+      .map(w => `<span class="reveal-word">${w}</span>`).join(' ');
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal-active'); });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.reveal-card').forEach(c => obs.observe(c));
+</script>
+
 {% endblock %}
