@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Caribbean | Destination Details{% endblock %}</title>
+<h1 class="color">Destinations Details</h1>
+<p>
+    <a class="color-return" href="{% url 'index' %}">Return Home</a>
+</p>
+{% endblock %}
