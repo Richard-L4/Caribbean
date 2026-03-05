@@ -29,6 +29,8 @@
             {% if active_tab == 'destinations_details' %}
             <span class="active">Destinations Details</span>
             {% endif %}
+            <a href="{% url 'login' %}" class="{% if active_tab == 'login' %}active{% endif %}">Login</a>
+            <a href="{% url 'logout' %}" class="{% if active_tab == 'logout' %}active{% endif %}">Logout</a>
             <a href="{% url 'admin:index' %}">Admin</a>
             
         </div>

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Caribbean | Logout{% endblock %}</title>
+<h2 class="color">The Logout Page</h2>
+<p>
+    <a class="color-return" href="{% url 'index' %}">Return Home</a>
+</p>
+{% endblock %}
