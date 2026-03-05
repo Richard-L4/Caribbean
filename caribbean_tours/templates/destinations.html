@@ -3,4 +3,35 @@
 {% block content %}
   <title>{% block title %}Caribbean | Destinations{% endblock %}</title>
 <h1 class="color">Caribbean Destinations</h1>
+<h2 class="color">Cancun</h2>
+<p>
+  <a class="color-return" href="{% url 'index' %}">Return Home</a>
+</p>
+<div class="cards-container">
+
+  <div class="card">
+    <img src="{% static 'images/Cancun-1.jpg' %}" alt="Cancun">
+    <p><strong>Cancun Mexico</strong></p>
+    <p>Cancún is a Caribbean coastal city...</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'images/Cancun-2.jpg' %}" alt="Cancun">
+    <p><strong>Cancun Mexico</strong></p>
+    <p>Cancún is a Caribbean coastal city...</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'images/Cancun-3.jpg' %}" alt="Cancun">
+    <p><strong>Cancun Mexico</strong></p>
+    <p>Cancún is a Caribbean coastal city...</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'images/Cancun-4.jpg' %}" alt="Cancun">
+    <p><strong>Cancun Mexico</strong></p>
+    <p>Cancún is a Caribbean coastal city...</p>
+  </div>
+
+</div>
 {% endblock %}
