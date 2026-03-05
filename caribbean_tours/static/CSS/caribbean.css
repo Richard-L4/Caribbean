@@ -178,86 +178,6 @@ a.color-return:hover { color: yellow; }
   text-align: center;
 }
 
-
-/* ===========================
-   Image Morph Slideshow
-=========================== */
-.image-morph {
-  position: relative;
-  width: 70%;
-  max-width: 1200px;
-  height: 400px;
-  margin: 20px auto;
-  overflow: hidden;
-  border: 8px solid #6d0e7d;
-  border-radius: 8px;
-  box-shadow: 0 0 0 4px #04f82f;
-}
-
-.image-morph img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  animation: morph 25.6s linear infinite;
-}
-
-.image-morph img:nth-child(1) { animation-delay: 0s; }
-.image-morph img:nth-child(2) { animation-delay: 3.2s; }
-.image-morph img:nth-child(3) { animation-delay: 6.4s; }
-.image-morph img:nth-child(4) { animation-delay: 9.6s; }
-.image-morph img:nth-child(5) { animation-delay: 12.8s; }
-.image-morph img:nth-child(6) { animation-delay: 16s; }
-.image-morph img:nth-child(7) { animation-delay: 19.2s; }
-.image-morph img:nth-child(8) { animation-delay: 22.4s; }
-
-@keyframes morph {
-  0%      { opacity: 0; }
-  3.125%  { opacity: 1; }
-  15.625% { opacity: 1; }
-  18.75%  { opacity: 0; }
-  100%    { opacity: 0; }
-}
-
-
-/* ===========================
-   Valencia Intro Block
-=========================== */
-.valencia-intro {
-  width: 85%;
-  background-color: #6d0e7d;
-  padding: 5rem 5%;
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  margin: 0 auto;
-  border-radius: 2%;
-  border: 8px solid #04f82f;
-}
-
-.valencia-text {
-  width: 95%;
-  padding: 10px;
-  background-color: whitesmoke;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  text-align: justify;
-}
-
-@media (max-width: 1500px) {
-  .valencia-intro { width: 85%; }
-  .valencia-text  { width: 80%; }
-}
-
-@media (max-width: 1080px) {
-  .valencia-intro { width: 70%; }
-}
-
-
 /* ===========================
    Cards & Grid
 =========================== */
@@ -802,30 +722,6 @@ footer {
 /* ===================================================
    SCROLL REVEAL — Image wipe + 3D text burst
 
-   HTML STRUCTURE:
-   <div class="reveal-card">                      (image right, text left — default)
-   <div class="reveal-card reveal-left">          (image left, text right)
-
-     <div class="reveal-image-col"><img ...></div>
-     <div class="reveal-text-col">
-       <span class="reveal-label">01 / Label</span>
-       <h2>Your heading</h2>
-       <p>Body copy...</p>
-       <a class="reveal-btn" href="#">CTA</a>
-     </div>
-   </div>
-
-   JS (add once before </body>):
-   <script>
-     document.querySelectorAll('.reveal-text-col h2').forEach(h2 => {
-       h2.innerHTML = h2.textContent.trim().split(/\s+/)
-         .map(w => `<span class="reveal-word">${w}</span>`).join(' ');
-     });
-     const obs = new IntersectionObserver(entries => {
-       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal-active'); });
-     }, { threshold: 0.25 });
-     document.querySelectorAll('.reveal-card').forEach(c => obs.observe(c));
-   </script>
 =================================================== */
 
 .reveal-card {
@@ -978,11 +874,6 @@ footer {
 .reveal-card.reveal-active .reveal-word:nth-child(1) { transition-delay: 0.20s; }
 .reveal-card.reveal-active .reveal-word:nth-child(2) { transition-delay: 0.31s; }
 .reveal-card.reveal-active .reveal-word:nth-child(3) { transition-delay: 0.42s; }
-.reveal-card.reveal-active .reveal-word:nth-child(4) { transition-delay: 0.53s; }
-.reveal-card.reveal-active .reveal-word:nth-child(5) { transition-delay: 0.64s; }
-.reveal-card.reveal-active .reveal-word:nth-child(6) { transition-delay: 0.75s; }
-.reveal-card.reveal-active .reveal-word:nth-child(7) { transition-delay: 0.86s; }
-.reveal-card.reveal-active .reveal-word:nth-child(8) { transition-delay: 0.97s; }
 
 @media (max-width: 768px) {
   .reveal-card { grid-template-columns: 1fr; min-height: auto; }
