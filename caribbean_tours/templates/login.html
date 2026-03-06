@@ -6,4 +6,14 @@
 <p>
     <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
+<div class="form-map-container">
+    <section id="form">
+        <form id="contact-form" method="post" action="{% url 'index' %}">
+            {% csrf_tokem %}
+            {{ form.as_p }}
+            <a>Please enter your password.</a>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</div>
 {% endblock %}

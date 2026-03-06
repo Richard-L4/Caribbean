@@ -424,8 +424,8 @@ button:hover {
 #form button:hover,
 #contact-form button:hover        { background-color: #a0abb7; color: #111; }
 
-#lg, #clg                         { background-color: rgb(203 46 211); color: #fff; }
-#lg:hover, #clg:hover             { background-color: #a0abb7; color: #111; }
+#lg, #clg                         { background-color: #6d0e7d; color: #04f82f; }
+#lg:hover, #clg:hover             { background-color: #6d0e7d; color: yellow; }
 
 .cancel-link,
 .logout-form .cancel-link         { background-color: #ccc; color: #111; padding: 10px 16px; border-radius: 8px; }

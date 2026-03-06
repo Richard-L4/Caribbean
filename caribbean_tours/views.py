@@ -21,3 +21,8 @@ def login(request):
 
 def logout(request):
     return render(request, 'logout.html', {'active_tab': 'logout'})
+
+
+def confirm_logout(request):
+    return render(request,
+                  'confirm-logout.html', {'active_tab': 'confirm_logout'})
