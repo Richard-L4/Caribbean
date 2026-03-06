@@ -5,6 +5,10 @@ def index(request):
     return render(request, 'index.html', {'active_tab': 'index'})
 
 
+def info(request):
+    return render(request, 'info.html', {'active_tab': 'info'})
+
+
 def destinations(request):
     return render(request, 'destinations.html', {'active_tab': 'destinations'})
 

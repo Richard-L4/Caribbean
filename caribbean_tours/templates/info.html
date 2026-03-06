@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}{% endblock %}</title>
+<h2 class="color">Info</h2>
+<p>
+    <a class="color-return" href="{% url 'index' %}">Return Home</a>
+</p>
+<div class="form-map-container">
+    <section></section>
+</div>
+{% endblock %}
