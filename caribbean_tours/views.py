@@ -26,3 +26,7 @@ def logout(request):
 def confirm_logout(request):
     return render(request,
                   'confirm-logout.html', {'active_tab': 'confirm_logout'})
+
+
+def register(request):
+    return render(request, 'register.html', {'active_tab': 'register'})

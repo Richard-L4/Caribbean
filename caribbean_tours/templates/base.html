@@ -34,6 +34,7 @@
             {% if active_tab == 'confirm_logout' %}
             <span class="active">Confirm Logout</span>
             {% endif %}
+            <a href="{% url 'register' %}" class="{% if active_tab == 'register' %}active{% endif %}">Register</a>
             <a href="{% url 'admin:index' %}">Admin</a>
             
         </div>
