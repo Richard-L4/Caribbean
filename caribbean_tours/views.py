@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import ContactForm
+from django.contrib import messages
 
 
 def index(request):
@@ -6,7 +8,15 @@ def index(request):
 
 
 def info(request):
-    return render(request, 'info.html', {'active_tab': 'info'})
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been submitted")
+            return redirect('info')
+    else:
+        form = ContactForm()
+    return render(request, 'info.html', {'active_tab': 'info', 'form': form})
 
 
 def destinations(request):
