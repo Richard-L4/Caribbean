@@ -51,6 +51,13 @@
     </div>
         {% endfor %} 
     {% endif %}
+
+    {% if request.user.is_authenticated %}
+    <div class="auth-badge">
+        Your are logged in as {{ request.user.username }}
+    </div>
+    {% endif %}
+
     <main>
         {% block content %}
         <!-- Child templates will fill this area -->

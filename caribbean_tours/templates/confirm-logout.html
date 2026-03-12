@@ -6,7 +6,7 @@
 <p>
     <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
-<form class="confirm-logout" action="{% url 'confirm-logout' %}">
+<form class="confirm-logout" method="post" action="{% url 'confirm-logout' %}">
     {% csrf_token %}
     <button id="clg" type="submit">Submit</button>
     <a class="color" href="{% url 'index' %}">Cancel</a>

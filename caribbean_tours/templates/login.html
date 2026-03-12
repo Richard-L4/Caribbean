@@ -8,8 +8,8 @@
 </p>
 <div class="form-map-container">
     <section id="form">
-        <form id="contact-form" method="post" action="{% url 'index' %}">
-            {% csrf_tokem %}
+        <form id="contact-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
             {{ form.as_p }}
             <a>Please enter your password.</a>
             <button type="submit">Submit</button>

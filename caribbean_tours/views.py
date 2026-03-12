@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import ContactForm
+from .forms import ContactForm, RegisterForm
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 
 
 def index(request):
@@ -29,18 +31,41 @@ def destinations_details(request):
                   {'active_tab': 'destinations_details'})
 
 
-def login(request):
-    return render(request, 'login.html', {'active_tab': 'login'})
+# ==============================
+# User Authentication
+# ==============================
+def user_login(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.get_user()  # ← Use this instead of authenticate()
+        login(request, user)
+        messages.success(request, f"You are logged in as {user.username}")
+        return redirect('index')
+    return render(request, 'login.html', {'active_tab': 'login', 'form': form})
 
 
-def logout(request):
+def user_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('index')
     return render(request, 'logout.html', {'active_tab': 'logout'})
 
 
 def confirm_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('index')
     return render(request,
                   'confirm-logout.html', {'active_tab': 'confirm_logout'})
 
 
 def register(request):
-    return render(request, 'register.html', {'active_tab': 'register'})
+    form = RegisterForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        user = form.save()
+        messages.success(
+            request, f"Account created for {user.username}! You can log in."
+        )
+        return redirect('login')
+    return render(request, 'register.html',
+                  {'active_tab': 'register', 'form': form})
