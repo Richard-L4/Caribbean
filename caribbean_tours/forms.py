@@ -36,6 +36,14 @@ class ContactForm(forms.ModelForm):
 
 
 class RegisterForm(UserCreationForm):
+
+    username = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Enter your name'
+        })
+    )
+
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(attrs={
@@ -60,18 +68,14 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-        widget = {
-            'username': forms.TextInput(
-                attrs={'placeholder': 'Enter your name'},
-            )
-        }
 
-    class LoginForm(forms.Form):
-        name = forms.CharField(max_length=20, label="Username",
-                               widget=forms.TextInput(
-                                   attrs={'placeholder': 'Enter username'}))
-        password = forms.CharField(
-            widget=forms.PasswordInput(attrs={
-                'placeholder': 'Enter your name'
-            }), label="Password"
-        )
+
+class LoginForm(forms.Form):
+    name = forms.CharField(max_length=20, label="Username",
+                           widget=forms.TextInput(
+                                attrs={'placeholder': 'Enter username'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Enter your name'
+        }), label="Password"
+    )
