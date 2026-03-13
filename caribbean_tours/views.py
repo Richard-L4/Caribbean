@@ -48,7 +48,13 @@ def user_logout(request):
     if request.method == 'POST':
         logout(request)
         return redirect('index')
-    return render(request, 'logout.html', {'active_tab': 'logout'})
+    else:
+        """
+             the else: as an example that although not needed show the end of
+             the def function shows the pattern, check the if and if not the
+             if go to return render
+        """
+        return render(request, 'logout.html', {'active_tab': 'logout'})
 
 
 def confirm_logout(request):
