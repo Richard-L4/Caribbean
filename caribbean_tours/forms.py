@@ -25,8 +25,8 @@ class ContactForm(forms.ModelForm):
             'phone': forms.TextInput(
                 attrs={'placeholder': 'Enter your phone number'}
             ),
-            'message': forms.TextInput(
-                attrs={'placeholder': 'Enter your email'}
+            'message': forms.Textarea(
+                attrs={'placeholder': 'Enter your message here'}
             ),
         }
 
@@ -76,6 +76,6 @@ class LoginForm(forms.Form):
                                 attrs={'placeholder': 'Enter username'}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Enter your name'
+            'placeholder': 'Enter your password'
         }), label="Password"
     )
