@@ -10,7 +10,7 @@
   <div class="reveal-text-col">
     <h2>Cancun</h2>
     <p>White sand beaches, turquoise Caribbean waters, ancient Mayan ruins, and a world famous hotel strip. Mexico's most visited resort city blends natural beauty with vibrant nightlife and year round sunshine.</p>
-    <a class="reveal-btn" href="{% url 'destinations-details' %}">Read more</a>
+    <a class="reveal-btn" href="{% url 'destinations-details' pk=2 %}">Read more</a>
   </div>
   <div class="reveal-image-col">
     <img src="{% static 'images/Cancun-background.png' %}" alt="...">
@@ -25,7 +25,7 @@
   <div class="reveal-text-col">
     <h2>Dominican Republic</h2>
     <p>A diverse island of lush mountains, colonial Santo Domingo, and stunning beaches like Punta Cana. Warm people, merengue music, and rich culture make it the Caribbean's most visited nation.</p>
-    <a class="reveal-btn" href="{% url 'destinations-details' %}">Read more</a>
+    <a class="reveal-btn" href="{% url 'destinations-details' pk=3 %}">Read more</a>
   </div>
 </div>
 
@@ -34,7 +34,7 @@
   <div class="reveal-text-col">
     <h2>Puerto Rica</h2>
     <p>A US territory with a Spanish soul. Old San Juan's colourful colonial streets, El Yunque rainforest, and Condado beach combine Caribbean warmth with American convenience and extraordinary food culture.</p>
-    <a class="reveal-btn" href="{% url 'destinations-details' %}">Read more</a>
+    <a class="reveal-btn" href="{% url 'destinations-details' pk=4 %}">Read more</a>
   </div>
   <div class="reveal-image-col">
     <img src="{% static 'images/PR-background.jpg' %}" alt="...">

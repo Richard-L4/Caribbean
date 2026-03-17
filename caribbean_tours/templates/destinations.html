@@ -8,30 +8,13 @@
   <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
 <div class="cards-container">
-
-  <div class="card">
-    <img src="{% static 'images/Cancun-1.jpg' %}" alt="Cancun">
-    <p><strong>Cancun Mexico</strong></p>
-    <p>Cancún is a Caribbean coastal city...</p>
+  {% for card in card_texts %}
+  <div class="card" data-url="{% url 'destinations' %}" onclick="window.location = this.dataset.url">
+    <img src="{% static 'images/' %}{{ card.image_name }}" alt="{{ card.title }}">
+    <p><strong>{{ card.title }}</strong></p>
+    <p>{{ card.content|truncatechars:50 }}</p>
+    <a href="{% url 'destinations-details' pk=card.id %}" class="read-more">Read more</a>
   </div>
-
-  <div class="card">
-    <img src="{% static 'images/Cancun-2.jpg' %}" alt="Cancun">
-    <p><strong>Cancun Mexico</strong></p>
-    <p>Cancún is a Caribbean coastal city...</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'images/Cancun-3.jpg' %}" alt="Cancun">
-    <p><strong>Cancun Mexico</strong></p>
-    <p>Cancún is a Caribbean coastal city...</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'images/Cancun-4.jpg' %}" alt="Cancun">
-    <p><strong>Cancun Mexico</strong></p>
-    <p>Cancún is a Caribbean coastal city...</p>
-  </div>
-
+  {% endfor %}
 </div>
 {% endblock %}

@@ -6,4 +6,13 @@
 <p>
     <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
+<div class="card-detail-wrapper">
+    <div class="card-detail">
+        <img src="{% static 'images/' %}{{ card.image_name }}" alt="{{ card.title }}">
+    </div>
+    <div class="card-content-box">
+        <h1>{{ card.title }}</h1>
+        <p>{{card.content }}</p>
+    </div>
+</div>
 {% endblock %}

@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ContactForm, RegisterForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from .models import CardText
 
 
 def index(request):
@@ -22,13 +23,20 @@ def info(request):
 
 
 def destinations(request):
-    return render(request, 'destinations.html', {'active_tab': 'destinations'})
+    card_texts = CardText.objects.all().order_by('id')
+    for card in card_texts:
+        card.content = card.content or 'Content coming soon'
+    return render(request,
+                  'destinations.html',
+                  {'active_tab': 'destinations',
+                   'card_texts': card_texts})
 
 
-def destinations_details(request):
+def destinations_details(request, pk):
+    card = get_object_or_404(CardText, id=pk)
     return render(request,
                   'destinations-details.html',
-                  {'active_tab': 'destinations_details'})
+                  {'active_tab': 'destinations_details', 'card': card})
 
 
 # ==============================
