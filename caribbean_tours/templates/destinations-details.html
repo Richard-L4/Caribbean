@@ -6,13 +6,13 @@
 <p>
     <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
-<div class="card-detail-wrapper">
-    <div class="card-detail">
-        <img src="{% static 'images/' %}{{ card.image_name }}" alt="{{ card.title }}">
+<div class="cards-container">
+    {% for place in places %}
+    <div class="card" data-url="{% url 'destinations-details' pk=card.id %}" onclick="window.location = this.dataset.url">
+        <img src="{% static 'images/' %}{{ place.image_name }}" alt="{{ place.title }}">
+        <h1 class="color">{{ place.destinations }}</h1>
+        <p>{{ place.content }}</p>
     </div>
-    <div class="card-content-box">
-        <h1>{{ card.title }}</h1>
-        <p>{{card.content }}</p>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}

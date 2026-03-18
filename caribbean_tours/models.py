@@ -31,3 +31,27 @@ class CardText(models.Model):
 
     def __str__(self):
         return self.title or f"Card for {self.image_name}"
+
+    class Meta:
+        verbose_name = 'CardText'
+        verbose_name_plural = 'CardTexts'
+
+
+class Places(models.Model):
+    card = models.ForeignKey(CardText,
+                             on_delete=models.CASCADE, null=True, blank=True)
+    destinations = models.CharField(max_length=50)
+    content = models.TextField()
+    image_name = models.CharField(
+        max_length=100,
+        help_text="Enter file name (eg Cancun).",
+        default="default.jpg",
+        blank=True
+    )
+
+    def __str__(self):
+        return self.destinations or f"Card for {self.image_name}"
+
+    class Meta:
+        verbose_name = 'Place'
+        verbose_name_plural = 'Places'

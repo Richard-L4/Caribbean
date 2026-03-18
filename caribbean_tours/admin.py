@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact, CardText
+from .models import Contact, CardText, Places
 
 
 # Register your models here.
@@ -14,6 +14,16 @@ class Contact(admin.ModelAdmin):
 @admin.register(CardText)
 class CardText(admin.ModelAdmin):
     list_display = ('title', 'short_content', 'image_name')
+
+    def short_content(self, obj):
+        content = obj.content or ""
+        return content[:50] + ("..." if len(obj.content) > 50 else "")
+    short_content.short_description = "Content"
+
+
+@admin.register(Places)
+class PlacesAdmin(admin.ModelAdmin):
+    list_display = ('destinations', 'short_content', 'image_name')
 
     def short_content(self, obj):
         content = obj.content or ""
