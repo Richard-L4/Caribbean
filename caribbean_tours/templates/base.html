@@ -26,7 +26,7 @@
         <div class="nav-links" id="nav-links">
             <a href="{% url 'index' %}" class="{% if active_tab == 'index' %}active{% endif %}">Home</a>
             <a href="{% url 'info' %}" class="{% if active_tab == 'info' %}active{% endif %}">Info</a>
-            <a href="{% url 'destinations' %}"
+            <a href="{% url 'destinations' pk=2%}"
                 class="{% if active_tab == 'destinations' %}active{% endif %}">Destinations</a>
             {% if active_tab == 'destinations_details' %}
             <span class="active">Destinations Details</span>

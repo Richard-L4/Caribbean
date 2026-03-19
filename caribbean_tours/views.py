@@ -22,14 +22,18 @@ def info(request):
     return render(request, 'info.html', {'active_tab': 'info', 'form': form})
 
 
-def destinations(request):
-    card_texts = CardText.objects.all().order_by('id')
-    for card in card_texts:
-        card.content = card.content or 'Content coming soon'
+def destinations(request, pk):
+    card = get_object_or_404(CardText, pk=pk)
+
+    prev_card = CardText.objects.filter(pk__lt=pk, pk__gte=2).order_by('-pk').first()
+    next_card = CardText.objects.filter(pk__gt=pk).order_by('pk').first()
+
     return render(request,
                   'destinations.html',
                   {'active_tab': 'destinations',
-                   'card_texts': card_texts})
+                   'card': card,
+                   'prev_card': prev_card,
+                   'next_card': next_card})
 
 
 def destinations_details(request, pk):

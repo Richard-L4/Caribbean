@@ -3,18 +3,24 @@
 {% block content %}
   <title>{% block title %}Caribbean | Destinations{% endblock %}</title>
 <h1 class="color">Caribbean Destinations</h1>
-<h2 class="color">Cancun</h2>
 <p>
   <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
 <div class="cards-container">
-  {% for card in card_texts %}
-  <div class="card" data-url="{% url 'destinations' %}" onclick="window.location = this.dataset.url">
+  <div class="card" data-url="{% url 'destinations' pk=card.id %}" onclick="window.location = this.dataset.url">
     <img src="{% static 'images/' %}{{ card.image_name }}" alt="{{ card.title }}">
     <p><strong>{{ card.title }}</strong></p>
     <p>{{ card.content|truncatechars:50 }}</p>
     <a href="{% url 'destinations-details' pk=card.id %}" class="read-more">Read more</a>
   </div>
-  {% endfor %}
+</div>
+<div class="pagination">
+  {% if prev_card %}
+  <a href="{% url 'destinations' pk=prev_card.pk %}">← {{ prev_card.title }}</a>
+  {% endif %}
+
+  {% if next_card %}
+  <a href="{% url 'destinations' pk=next_card.pk %}">{{ next_card.title }} →</a>
+  {% endif %}
 </div>
 {% endblock %}
