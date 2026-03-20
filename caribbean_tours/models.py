@@ -55,3 +55,18 @@ class Places(models.Model):
     class Meta:
         verbose_name = 'Place'
         verbose_name_plural = 'Places'
+
+
+class Comment(models.Model):
+    places = models.ForeignKey(
+        Places,
+        on_delete=models.CASCADE,
+        related_name='comments',
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.text[:50]}"

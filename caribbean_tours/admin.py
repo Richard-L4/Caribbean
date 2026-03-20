@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact, CardText, Places
+from .models import Contact, CardText, Places, Comment
 
 
 # Register your models here.
@@ -29,3 +29,13 @@ class PlacesAdmin(admin.ModelAdmin):
         content = obj.content or ""
         return content[:50] + ("..." if len(obj.content) > 50 else "")
     short_content.short_description = "Content"
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('comment_preview', 'user', 'created_at')
+
+    def comment_preview(self, obj):
+        preview = obj.text or ""
+        return preview[:20] + ("..." if len(obj.text) > 20 else "")
+    comment_preview.short_description = "Preview"

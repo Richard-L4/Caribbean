@@ -8,10 +8,35 @@
 </p>
 <div class="cards-container">
     {% for place in places %}
-    <div class="card" data-url="{% url 'destinations-details' pk=card.id %}" onclick="window.location = this.dataset.url">
-        <img src="{% static 'images/' %}{{ place.image_name }}" alt="{{ place.title }}">
+    <div class="card">
+        <img src="{% static 'images/' %}{{ place.image_name }}" alt="{{ place.destinations }}">
         <h1 class="color">{{ place.destinations }}</h1>
         <p>{{ place.content }}</p>
+
+        {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="place_id" value="{{ place.id }}">
+            {{ form.as_p }}
+            <button type="submit">Add comment</button>
+        </form>
+        {% endif %}
+
+        <h2 class="color">Comments</h2>
+        {% for comment in place.comments.all %}
+        <div class="comment" data-id="{{ comment.id }}">
+            <p><strong>{{ comment.user.username }}</strong> said:</p>
+            <p>{{ comment.text }}</p>
+            <small>{{ comment.created_at|date:"M d, Y H:i" }}</small>
+        </div>
+        {% if user == comment.user %}
+        <div class="actions">
+            <a href="">Edit</a>
+            <a href="">Delete</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+
     </div>
     {% endfor %}
 </div>

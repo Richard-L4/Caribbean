@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ContactForm, RegisterForm
+from .forms import ContactForm, RegisterForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import CardText, Places
+from .models import CardText, Places, Comment
 
 
 def index(request):
@@ -25,7 +25,8 @@ def info(request):
 def destinations(request, pk):
     card = get_object_or_404(CardText, pk=pk)
 
-    prev_card = CardText.objects.filter(pk__lt=pk, pk__gte=2).order_by('-pk').first()
+    prev_card = CardText.objects.filter(pk__lt=pk,
+                                        pk__gte=2).order_by('-pk').first()
     next_card = CardText.objects.filter(pk__gt=pk).order_by('pk').first()
 
     return render(request,
@@ -39,11 +40,28 @@ def destinations(request, pk):
 def destinations_details(request, pk):
     card = get_object_or_404(CardText, id=pk)
     places = Places.objects.filter(card=card)
+    form = CommentForm(request.POST)
+    if request.method == 'POST':
+        place_id = request.POST.get('place_id')
+        place = get_object_or_404(Places, id=place_id)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.places = place
+            comment.save()
+            return redirect('destinations-details', pk=card.pk)
+    else:
+        form = CommentForm()
+
+    comments = Comment.objects.filter(places__card=card).order_by('created_at')
     return render(request,
                   'destinations-details.html',
                   {'active_tab': 'destinations_details',
                    'card': card,
-                   'places': places})
+                   'places': places,
+                   'comments': comments,
+                   'form': form})
 
 
 # ==============================
