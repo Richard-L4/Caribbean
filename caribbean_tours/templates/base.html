@@ -31,6 +31,12 @@
             {% if active_tab == 'destinations_details' %}
             <span class="active">Destinations Details</span>
             {% endif %}
+            {% if active_tab == 'edit-comment' %}
+            <span class="active">Edit Comment</span>
+            {% endif %}
+            {% if active_tab == 'delete-comment' %}
+            <span class="active">Delete Comment</span>
+            {% endif %}
             <a href="{% url 'login' %}" class="{% if active_tab == 'login' %}active{% endif %}">Login</a>
             <a href="{% url 'logout' %}" class="{% if active_tab == 'logout' %}active{% endif %}">Logout</a>
             {% if active_tab == 'confirm_logout' %}

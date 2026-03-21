@@ -64,6 +64,15 @@ def destinations_details(request, pk):
                    'form': form})
 
 
+def edit_comment(request):
+    return render(request, 'edit-comment.html', {'active_tab': 'edit-comment'})
+
+
+def delete_comment(request):
+    return render(request,
+                  'delete-comment.html', {'active_tab': 'delete-comment'})
+
+
 # ==============================
 # User Authentication
 # ==============================

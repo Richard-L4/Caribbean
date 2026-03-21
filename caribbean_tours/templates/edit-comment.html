@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<title>{% block title %}Edit | Comment{% endblock %}</title>
+<h1 class="color">Edit Comment Page</h1>
+<p>
+    <a class="color-return"href="{% url 'index' %}">Return Home</a>
+</p>
+<div class="form-map-container">
+    <section id="form">
+        <form id="contact-form" method="POST" action="{% url 'edit-comment' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
