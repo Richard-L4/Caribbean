@@ -8,7 +8,7 @@
 </p>
 <div class="form-map-container">
     <section id="form">
-        <form id="contact-form" method="POST" action="{% url 'edit-comment' %}">
+        <form id="contact-form" method="POST" action="{% url 'edit-comment' pk=comment.pk%}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Submit</button>

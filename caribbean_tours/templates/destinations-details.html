@@ -31,8 +31,8 @@
         </div>
         {% if user == comment.user %}
         <div class="actions">
-            <a href="">Edit</a>
-            <a href="">Delete</a>
+            <a href="{% url 'edit-comment' pk=comment.pk %}">Edit</a>
+            <a href="{% url 'delete-comment' pk=comment.pk %}">Delete</a>
         </div>
         {% endif %}
         {% endfor %}

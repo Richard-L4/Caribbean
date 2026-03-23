@@ -64,13 +64,33 @@ def destinations_details(request, pk):
                    'form': form})
 
 
-def edit_comment(request):
-    return render(request, 'edit-comment.html', {'active_tab': 'edit-comment'})
+def edit_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user != comment.user:
+        return redirect('destinations-details', pk=comment.places.card.pk)
+    form = CommentForm(request.POST or None, instance=comment)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('destinations-details', pk=comment.places.card.pk)
+    return render(request, 'edit-comment.html',
+                  {'active_tab': 'edit-comment',
+                   'form': form,
+                   'comment': comment})
 
 
-def delete_comment(request):
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user != comment.user:
+        return redirect('destinations-details', pk=comment.places.card.pk)
+
+    if request.method == 'POST':
+        card_pk = comment.places.card.pk
+        comment.delete()
+        return redirect('destinations-details', card_pk)
+
     return render(request,
-                  'delete-comment.html', {'active_tab': 'delete-comment'})
+                  'delete-comment.html', {'active_tab': 'delete-comment',
+                                          'comment': comment})
 
 
 # ==============================
