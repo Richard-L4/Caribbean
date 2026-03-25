@@ -11,14 +11,15 @@ def index(request):
 
 
 def info(request):
+    form = ContactForm(request.POST or None)
+    # -- use of None so else not
+    # -- needed in request before retrun direct
     if request.method == 'POST':
-        form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Your message has been submitted")
             return redirect('info')
-    else:
-        form = ContactForm()
+
     return render(request, 'info.html', {'active_tab': 'info', 'form': form})
 
 
