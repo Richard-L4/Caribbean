@@ -40,19 +40,16 @@ def destinations(request, pk):
 def destinations_details(request, pk):
     card = get_object_or_404(CardText, id=pk)
     places = Places.objects.filter(card=card)
-    form = CommentForm(request.POST)
+    form = CommentForm(request.POST or None)
     if request.method == 'POST':
         place_id = request.POST.get('place_id')
         place = get_object_or_404(Places, id=place_id)
-        form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
             comment.places = place
             comment.save()
             return redirect('destinations-details', pk=card.pk)
-    else:
-        form = CommentForm()
 
     comments = Comment.objects.filter(places__card=card).order_by('created_at')
     return render(request,
