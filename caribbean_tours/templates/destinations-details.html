@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load comment_tags %}
 {% block content %}
 <title>{% block title %}Caribbean | Destination Details{% endblock %}</title>
 <h1 class="color">Destinations Details</h1>
@@ -28,6 +29,16 @@
             <p><strong>{{ comment.user.username }}</strong> said:</p>
             <p>{{ comment.text }}</p>
             <small>{{ comment.created_at|date:"M d, Y H:i" }}</small>
+            <div class="reaction-buttons">
+                {% if user.is_authenticated %}
+                <button class="like-btn" data-url="">👍</button>
+                <span class="like-count">{{ comment|reaction_count:"like"}}</span>
+                <button class="dislike-btn" data-url="">👎</button>
+                <span class="dislike-count">{{ comment|reaction_count:"dislike"}}</span>
+                {% else %}
+                <p>Login to react.</p>
+                {% endif %}
+            </div>
         </div>
         {% if user == comment.user %}
         <div class="actions">

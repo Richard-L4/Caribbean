@@ -3,7 +3,10 @@ from .forms import ContactForm, RegisterForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import CardText, Places, Comment
+from .models import CardText, Places, Comment, CommentReaction
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 
 def index(request):
@@ -62,6 +65,7 @@ def destinations_details(request, pk):
                    'form': form})
 
 
+@login_required
 def edit_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.user != comment.user:
@@ -76,6 +80,7 @@ def edit_comment(request, pk):
                    'comment': comment})
 
 
+@login_required
 def delete_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.user != comment.user:
@@ -135,3 +140,9 @@ def register(request):
         return redirect('login')
     return render(request, 'register.html',
                   {'active_tab': 'register', 'form': form})
+
+
+# ==============================
+# Comment Reactions (Like/Dislike)
+# ==============================
+
