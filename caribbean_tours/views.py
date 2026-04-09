@@ -3,7 +3,7 @@ from .forms import ContactForm, RegisterForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import CardText, Places, Comment, CommentReaction
+from .models import CardText, Places, Comment, CommentReaction, Translation
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -28,7 +28,11 @@ def info(request):
 
 def destinations(request, pk):
     card = get_object_or_404(CardText, pk=pk)
+    language = request.GET.get('lang', 'en')
 
+    # try to get a translation, fall back to original card if none exists
+    translation = Translation.objects.filter(
+        card=card, language=language).first()
     prev_card = CardText.objects.filter(pk__lt=pk,
                                         pk__gte=2).order_by('-pk').first()
     next_card = CardText.objects.filter(pk__gt=pk).order_by('pk').first()
@@ -37,6 +41,7 @@ def destinations(request, pk):
                   'destinations.html',
                   {'active_tab': 'destinations',
                    'card': card,
+                   'translation': translation,
                    'prev_card': prev_card,
                    'next_card': next_card})
 
@@ -44,6 +49,17 @@ def destinations(request, pk):
 def destinations_details(request, pk):
     card = get_object_or_404(CardText, id=pk)
     places = Places.objects.filter(card=card)
+    language = request.GET.get('lang', 'en')
+
+    # get translations for all places on this card
+    place_translations = Translation.objects.filter(
+        place__in=places,
+        language=language
+    )
+    # turn into a dict so template can look up by place id
+    # { place.id: translation }
+    translations_by_place = {t.place_id: t for t in place_translations}
+
     form = CommentForm(request.POST or None)
     if request.method == 'POST':
         place_id = request.POST.get('place_id')
@@ -62,7 +78,9 @@ def destinations_details(request, pk):
                    'card': card,
                    'places': places,
                    'comments': comments,
-                   'form': form})
+                   'form': form,
+                   'translations_by_place': translations_by_place,
+                   'language': language})
 
 
 @login_required

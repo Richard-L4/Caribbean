@@ -88,3 +88,35 @@ class CommentReaction(models.Model):
 
     class Meta:
         unique_together = ('user', 'comment')
+
+
+class Translation(models.Model):
+    LANGUAGE_CHOICES = [
+            ('en', 'English'),
+            ('es', 'Spanish'),
+        ]
+
+    card = models.ForeignKey(
+            CardText,
+            related_name='translations',
+            on_delete=models.CASCADE,
+            null=True, blank=True
+        )
+    place = models.ForeignKey(
+            Places,
+            related_name='translations',
+            on_delete=models.CASCADE,
+            null=True, blank=True
+        )
+    language = models.CharField(max_length=5, choices=LANGUAGE_CHOICES)
+    title = models.CharField(max_length=30, blank=True)
+    destinations = models.CharField(max_length=50, blank=True)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        target = self.place.destinations if self.place else self.card.title
+        return f"{target} ({self.language})"
+
+    class Meta:
+        verbose_name = 'Translation'
+        verbose_name_plural = 'Translations'

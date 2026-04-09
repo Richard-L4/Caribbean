@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load comment_tags %}
+{% load custom_tags %}
 {% block content %}
 <title>{% block title %}Caribbean | Destination Details{% endblock %}</title>
 <h1 class="color">Destinations Details</h1>
@@ -10,9 +11,15 @@
 <div class="cards-container">
     {% for place in places %}
     <div class="card">
+        {% with trans=translations_by_place|get_item:place.id %}
         <img src="{% static 'images/' %}{{ place.image_name }}" alt="{{ place.destinations }}">
-        <h1 class="color">{{ place.destinations }}</h1>
-        <p>{{ place.content }}</p>
+        <h1 class="color">{{ trans.destinations|default:place.destinations }}</h1>
+        <p>{{ trans.content|default:place.content }}</p>
+        <div class="lang-switch">
+            <a href="{% url 'destinations-details' pk=card.pk %}?lang=en">English</a>
+            <a href="{% url 'destinations-details' pk=card.pk %}?lang=es">Spanish</a>
+        </div>
+        {% endwith %}
 
         {% if user.is_authenticated %}
         <form method="POST">

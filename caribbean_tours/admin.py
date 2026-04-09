@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Contact, CardText, Places, Comment, CommentReaction
+from .models import Contact, CardText, Places, Comment, CommentReaction, \
+                    Translation
 
 
 # Register your models here.
@@ -11,9 +12,25 @@ class Contact(admin.ModelAdmin):
 # --------------
 # Card Text
 # ---------------
+class TranslationInLine(admin.TabularInline):
+    model = Translation
+    extra = 0
+    fields = ('language', 'title', 'destinations', 'content')
+
+
+@admin.register(Translation)
+class TranslationAdmin(admin.ModelAdmin):
+    list_display = ('language', 'content')
+
+    def get_name(self, obj):
+        return obj.place.destinations if obj.place else obj.car.title
+    get_name.short_description = "Card / Place"
+
+
 @admin.register(CardText)
 class CardText(admin.ModelAdmin):
     list_display = ('title', 'short_content', 'image_name')
+    inlines = [TranslationInLine]
 
     def short_content(self, obj):
         content = obj.content or ""
@@ -24,6 +41,7 @@ class CardText(admin.ModelAdmin):
 @admin.register(Places)
 class PlacesAdmin(admin.ModelAdmin):
     list_display = ('destinations', 'short_content', 'image_name')
+    inlines = [TranslationInLine]
 
     def short_content(self, obj):
         content = obj.content or ""

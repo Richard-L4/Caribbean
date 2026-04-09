@@ -353,6 +353,32 @@ a.color-return:hover { color: yellow; }
 
 
 /* ===========================
+   Lang switch
+=========================== */
+.lang-switch {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem auto;
+    width: fit-content;
+}
+
+.lang-switch a {
+    padding: 0.4em 1em;
+    background-color: #124f49;
+    color: #f8046f;
+    border: 2px solid yellow;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+
+.lang-switch a:hover {
+    background-color: yellow;
+    color: #111;
+}
+/* ===========================
    Buttons (global)
 =========================== */
 button {

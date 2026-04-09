@@ -9,8 +9,12 @@
 <div class="cards-container">
   <div class="card" data-url="{% url 'destinations' pk=card.id %}" onclick="window.location = this.dataset.url">
     <img src="{% static 'images/' %}{{ card.image_name }}" alt="{{ card.title }}">
-    <p><strong>{{ card.title }}</strong></p>
-    <p>{{ card.content|truncatechars:50 }}</p>
+    <p><strong>{{ translation.title|default:card.title }}</strong></p>
+    <p>{{ translation.content|default:card.content|truncatechars:50 }}</p>
+    <div class="lang-switch">
+      <a href="{% url 'destinations' pk=card.id %}?lang=en">English</a>
+      <a href="{% url 'destination' pk=card.id %}?lang=es">Spanish</a>
+    </div>
     <a href="{% url 'destinations-details' pk=card.id %}" class="read-more">Read more</a>
   </div>
 </div>
