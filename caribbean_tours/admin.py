@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Contact, CardText, Places, Comment, CommentReaction, \
-                    Translation
+                    Translation, Rating
 
 
 # Register your models here.
@@ -38,10 +38,17 @@ class CardText(admin.ModelAdmin):
     short_content.short_description = "Content"
 
 
+class RatingInLine(admin.TabularInline):
+    model = Rating
+    extra = 0
+    fields = ('user', 'rating', 'created_at')
+    readonly_fields = ('user', 'rating', 'created_at',)
+
+
 @admin.register(Places)
 class PlacesAdmin(admin.ModelAdmin):
     list_display = ('destinations', 'short_content', 'image_name')
-    inlines = [TranslationInLine]
+    inlines = [TranslationInLine, RatingInLine]
 
     def short_content(self, obj):
         content = obj.content or ""
@@ -71,3 +78,8 @@ class CommentReactionInLine(admin.TabularInline):
 @admin.register(CommentReaction)
 class CommentReactionAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'comment', 'reaction')
+
+
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ('place', 'user', 'rating', 'created_at')
