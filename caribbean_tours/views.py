@@ -3,10 +3,12 @@ from .forms import ContactForm, RegisterForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import CardText, Places, Comment, CommentReaction, Translation
+from .models import CardText, Places, Comment, CommentReaction, Translation, \
+      Rating
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.db.models import Avg
 
 
 def index(request):
@@ -72,6 +74,23 @@ def destinations_details(request, pk):
             return redirect('destinations-details', pk=card.pk)
 
     comments = Comment.objects.filter(places__card=card).order_by('created_at')
+
+    ratings_by_place = {}
+    for p in places:
+
+        avg = p.ratings.aggregate(avg=Avg('rating'))['avg']
+        count = p.ratings.count()
+        user_rating = None
+
+        if request.user.is_authenticated:
+            user_rating = Rating.objects.filter(
+                place=p, user=request.user
+            ).first()
+        ratings_by_place[p.id] = {
+            'average_rating': avg,
+            'rating_count': count,
+            'user_rating': user_rating
+        }
     return render(request,
                   'destinations-details.html',
                   {'active_tab': 'destinations_details',
@@ -80,7 +99,8 @@ def destinations_details(request, pk):
                    'comments': comments,
                    'form': form,
                    'translations_by_place': translations_by_place,
-                   'language': language})
+                   'language': language,
+                   'ratings_by_place': ratings_by_place})
 
 
 @login_required
@@ -189,3 +209,21 @@ def toggle_reaction(request, comment_id, reaction_type):
 
     return JsonResponse({'status': status, 'likes': likes_count,
                          'dislikes': dislikes_count})
+
+
+@login_required
+def rating(request, pk):
+    if request.method == 'POST':
+        place = get_object_or_404(Places, pk=pk)
+        rating_value = int(request.POST.get('rating', 0))
+        if rating_value < 1 or rating_value > 5:
+            return redirect('destination-details', pk=place.card.pk)
+
+        # Create / update rating
+        Rating.objects.update_or_create(
+            place=place,
+            user=request.user,
+            defaults={'rating': rating_value}
+        )
+        return redirect('destinations-details', pk=place.card.pk)
+    return redirect('index')

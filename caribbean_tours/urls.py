@@ -7,6 +7,7 @@ urlpatterns = [
     path('destinations/<int:pk>/', views.destinations, name='destinations'),
     path('destinations-details/<int:pk>/',
          views.destinations_details, name='destinations-details'),
+    path('rating/<int:pk>/', views.rating, name='rating'),
     path('edit-comment/<int:pk>/', views.edit_comment, name='edit-comment'),
     path('delete-comment/<int:pk>/',
          views.delete_comment, name='delete-comment'),
