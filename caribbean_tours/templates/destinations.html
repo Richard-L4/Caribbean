@@ -13,7 +13,7 @@
     <p>{{ translation.content|default:card.content|truncatechars:50 }}</p>
     <div class="lang-switch">
       <a href="{% url 'destinations' pk=card.id %}?lang=en">English</a>
-      <a href="{% url 'destination' pk=card.id %}?lang=es">Spanish</a>
+      <a href="{% url 'destinations' pk=card.id %}?lang=es">Spanish</a>
     </div>
     <a href="{% url 'destinations-details' pk=card.id %}" class="read-more">Read more</a>
   </div>

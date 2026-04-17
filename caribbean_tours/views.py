@@ -28,9 +28,15 @@ def info(request):
     return render(request, 'info.html', {'active_tab': 'info', 'form': form})
 
 
+def get_language(request):
+    if 'lang' in request.GET:
+        request.session['language'] = request.GET.get('lang')
+    return request.session.get('language', 'en')
+
+
 def destinations(request, pk):
     card = get_object_or_404(CardText, pk=pk)
-    language = request.GET.get('lang', 'en')
+    language = get_language(request)
 
     # try to get a translation, fall back to original card if none exists
     translation = Translation.objects.filter(
@@ -44,6 +50,7 @@ def destinations(request, pk):
                   {'active_tab': 'destinations',
                    'card': card,
                    'translation': translation,
+                   'language': language,
                    'prev_card': prev_card,
                    'next_card': next_card})
 
@@ -51,7 +58,7 @@ def destinations(request, pk):
 def destinations_details(request, pk):
     card = get_object_or_404(CardText, id=pk)
     places = Places.objects.filter(card=card)
-    language = request.GET.get('lang', 'en')
+    language = get_language(request)
 
     # get translations for all places on this card
     place_translations = Translation.objects.filter(
