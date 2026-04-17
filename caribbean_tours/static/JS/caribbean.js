@@ -53,4 +53,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
   });
+    // --- Scroll reveal ---
+  const revealCards = document.querySelectorAll('.reveal-card');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  revealCards.forEach(card => observer.observe(card));
 });
